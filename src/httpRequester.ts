@@ -58,6 +58,7 @@ export class HttpRequester implements Http.Requester {
             options.params = requestBody;
         } else {
             options.data = requestBody;
+            options.params = {};
         }
         NativeHttp.request(options).then((nativeRes: HttpResponse) => {
             if (typeof nativeRes.data === "object") nativeRes.data = JSON.stringify(nativeRes.data);
