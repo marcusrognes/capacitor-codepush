@@ -441,6 +441,7 @@ var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, http
             }
             else {
                 options.data = requestBody;
+                options.params = {};
             }
             http.Http.request(options).then((nativeRes) => {
                 if (typeof nativeRes.data === "object")

@@ -47,6 +47,7 @@ export class HttpRequester {
         }
         else {
             options.data = requestBody;
+            options.params = {};
         }
         NativeHttp.request(options).then((nativeRes) => {
             if (typeof nativeRes.data === "object")
