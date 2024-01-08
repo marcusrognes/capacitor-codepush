@@ -131,7 +131,7 @@ export class FileUtil {
 
     public static async readFile(directory: Directory, path: string): Promise<string> {
         const result = await Filesystem.readFile({directory, path, encoding: Encoding.UTF8});
-        return result.data;
+        return result.data.toString();
     }
 
     public static readDataFile(path: string): Promise<string> {

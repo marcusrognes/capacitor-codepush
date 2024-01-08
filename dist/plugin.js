@@ -1,4 +1,4 @@
-var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, device, http, dialog) {
+var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, device, dialog) {
     'use strict';
 
     /**
@@ -239,7 +239,7 @@ var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, devi
         static readFile(directory, path) {
             return __awaiter$5(this, void 0, void 0, function* () {
                 const result = yield filesystem.Filesystem.readFile({ directory, path, encoding: filesystem.Encoding.UTF8 });
-                return result.data;
+                return result.data.toString();
             });
         }
         static readDataFile(path) {
@@ -543,7 +543,7 @@ var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, devi
                         serverUrl,
                         ignoreAppVersion: false,
                         appVersion,
-                        clientUniqueId: device$1.uuid
+                        clientUniqueId: device$1.identifier
                     };
                     if (deploymentKey) {
                         Sdk.DefaultAcquisitionManager = new acquisitionSdk.AcquisitionManager(new HttpRequester(), Sdk.DefaultConfiguration);
@@ -1112,12 +1112,11 @@ var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, devi
                     if (yield FileUtil.fileExists(filesystem.Directory.Data, file)) {
                         yield filesystem.Filesystem.deleteFile({ directory: filesystem.Directory.Data, path: file });
                     }
-                    yield http.Http.downloadFile({
+                    yield filesystem.Filesystem.downloadFile({
                         url: this.downloadUrl,
                         method: "GET",
-                        filePath: file,
-                        fileDirectory: filesystem.Directory.Data,
-                        responseType: "blob"
+                        path: file,
+                        directory: filesystem.Directory.Data,
                     });
                 }
                 catch (e) {
@@ -1643,5 +1642,5 @@ var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, devi
 
     return exports;
 
-})({}, acquisitionSdk, filesystem, capacitorExports, device, http, dialog);
+})({}, acquisitionSdk, filesystem, capacitorExports, device, dialog);
 //# sourceMappingURL=plugin.js.map
