@@ -1,8 +1,6 @@
 import { Http } from "code-push/script/acquisition-sdk";
 import type { Callback } from "./callbackUtil";
-import type { HttpResponse, HttpOptions } from "@capacitor-community/http";
-import { Http as NativeHttp } from "@capacitor-community/http";
-
+import { CapacitorHttp, HttpOptions } from "@capacitor/core";
 
 /**
  * XMLHttpRequest-based implementation of Http.Requester.
@@ -56,11 +54,11 @@ export class HttpRequester implements Http.Requester {
         };
         if (methodName === "GET") {
             options.params = requestBody;
+            
         } else {
             options.data = requestBody;
-            options.params = {};
         }
-        NativeHttp.request(options).then((nativeRes: HttpResponse) => {
+        CapacitorHttp.request(options).then((nativeRes) => {
             if (typeof nativeRes.data === "object") nativeRes.data = JSON.stringify(nativeRes.data);
             var response: Http.Response = { statusCode: nativeRes.status, body: nativeRes.data };
             requestCallback && requestCallback(null, response);

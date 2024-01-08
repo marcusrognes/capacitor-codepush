@@ -1,4 +1,4 @@
-var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, http, device, dialog) {
+var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, device, http, dialog) {
     'use strict';
 
     /**
@@ -441,9 +441,8 @@ var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, http
             }
             else {
                 options.data = requestBody;
-                options.params = {};
             }
-            http.Http.request(options).then((nativeRes) => {
+            core.CapacitorHttp.request(options).then((nativeRes) => {
                 if (typeof nativeRes.data === "object")
                     nativeRes.data = JSON.stringify(nativeRes.data);
                 var response = { statusCode: nativeRes.status, body: nativeRes.data };
@@ -1644,5 +1643,5 @@ var capacitorPlugin = (function (exports, acquisitionSdk, filesystem, core, http
 
     return exports;
 
-})({}, acquisitionSdk, filesystem, capacitorExports, http, device, dialog);
+})({}, acquisitionSdk, filesystem, capacitorExports, device, http, dialog);
 //# sourceMappingURL=plugin.js.map
