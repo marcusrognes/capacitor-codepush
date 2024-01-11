@@ -1,5 +1,4 @@
-import { Http } from "code-push/script/acquisition-sdk";
-import { CapacitorHttp } from "@capacitor/core";
+import { Http as NativeHttp } from "@capacitor-community/http";
 /**
  * XMLHttpRequest-based implementation of Http.Requester.
  */
@@ -48,8 +47,9 @@ export class HttpRequester {
         }
         else {
             options.data = requestBody;
+            options.params = {};
         }
-        CapacitorHttp.request(options).then((nativeRes) => {
+        NativeHttp.request(options).then((nativeRes) => {
             if (typeof nativeRes.data === "object")
                 nativeRes.data = JSON.stringify(nativeRes.data);
             var response = { statusCode: nativeRes.status, body: nativeRes.data };
@@ -62,21 +62,21 @@ export class HttpRequester {
      */
     getHttpMethodName(verb) {
         switch (verb) {
-            case Http.Verb.GET:
+            case 0 /* GET */:
                 return "GET";
-            case Http.Verb.DELETE:
+            case 4 /* DELETE */:
                 return "DELETE";
-            case Http.Verb.HEAD:
+            case 1 /* HEAD */:
                 return "HEAD";
-            case Http.Verb.PATCH:
+            case 8 /* PATCH */:
                 return "PATCH";
-            case Http.Verb.POST:
+            case 2 /* POST */:
                 return "POST";
-            case Http.Verb.PUT:
+            case 3 /* PUT */:
                 return "PUT";
-            case Http.Verb.TRACE:
-            case Http.Verb.OPTIONS:
-            case Http.Verb.CONNECT:
+            case 5 /* TRACE */:
+            case 6 /* OPTIONS */:
+            case 7 /* CONNECT */:
             default:
                 return null;
         }

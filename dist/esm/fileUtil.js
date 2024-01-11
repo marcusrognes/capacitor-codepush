@@ -149,7 +149,7 @@ export class FileUtil {
     static readFile(directory, path) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield Filesystem.readFile({ directory, path, encoding: Encoding.UTF8 });
-            return result.data.toString();
+            return result.data;
         });
     }
     static readDataFile(path) {
